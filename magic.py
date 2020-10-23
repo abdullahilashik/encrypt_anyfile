@@ -1,16 +1,19 @@
 from cryptography.fernet import Fernet
 import os
+import easygui
 
 class Magic:
-
+    
     def __init__(self):
         ''' do the magic trick '''
         self.key = ''
 
-    def gen_key(self):
-        self.key = Fernet.generate_key()
+    def gen_key(self):        
+        self.key = Fernet.generate_key()                
+
         with open('key.key','wb') as binary_file:
             binary_file.write(self.key)
+
         print('[*] Key generated and saved!')
 
     def get_key(self):
@@ -64,6 +67,8 @@ class Magic:
         print('[-] File has been decrypted')
         
 if __name__ == '__main__':
+    filename = easygui.fileopenbox()    
     m = Magic()    
-    m.encrypt('data.json')
-    # m.decrypt('data.json.encrypted')
+    # m.gen_key()
+    m.encrypt(filename)
+    # m.decrypt(filename)
